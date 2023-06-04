@@ -9,8 +9,12 @@ const { ipcRenderer } = require('electron')
 
 window.addEventListener('DOMContentLoaded', () => {
     // console.log(document.getElementById('node-version'),process.versions.node)
-    document.getElementById('node-version').innerText = process.versions.node
+    document.getElementById('node-version').innerHTML = process.versions.node
     document.getElementById('send').addEventListener('click', () => {
         ipcRenderer.send('message', 'hello from renderer')
+    })
+    ipcRenderer.on('reply', function (event, arg) {
+        // console.log(event, arg)
+        document.getElementById('node-version').innerHTML = arg
     })
 })

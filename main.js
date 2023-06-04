@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 
 app.on('ready', function () {
   // require('devtron').install() 
@@ -13,6 +13,10 @@ app.on('ready', function () {
 
   mainWindow.loadFile('index.html')
   mainWindow.webContents.openDevTools()
+  ipcMain.on('message', function (event, arg) {
+    // console.log(event,arg)
+    event.reply('reply', 'hello from main process')
+  })
   // let secondWindow = new BrowserWindow({
   //   width: 400,
   //   height: 200,
