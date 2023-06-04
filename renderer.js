@@ -6,12 +6,19 @@
  * to expose Node.js functionality from the main process.
  */
 const { ipcRenderer } = require('electron')
+// 这里的@electron/remote就相当于main process
+const { BrowserWindow } = require("@electron/remote")
 
 window.addEventListener('DOMContentLoaded', () => {
     // console.log(document.getElementById('node-version'),process.versions.node)
     document.getElementById('node-version').innerHTML = process.versions.node
     document.getElementById('send').addEventListener('click', () => {
         ipcRenderer.send('message', 'hello from renderer')
+        let win = new BrowserWindow({
+            width: 800,
+            height: 600,
+        })
+        win.loadURL('http://baidu.com/')
     })
     ipcRenderer.on('reply', function (event, arg) {
         // console.log(event, arg)

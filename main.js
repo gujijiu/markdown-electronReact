@@ -12,7 +12,13 @@ app.on('ready', function () {
   })
 
   mainWindow.loadFile('index.html')
-  mainWindow.webContents.openDevTools()
+  // 打开 开发者工具
+  mainWindow.webContents.openDevTools();
+
+  //初始化远程模块的主进程端
+  require("@electron/remote/main").initialize();
+  // 启用webContents 远程
+  require("@electron/remote/main").enable(mainWindow.webContents);
   ipcMain.on('message', function (event, arg) {
     // console.log(event,arg)
     event.reply('reply', 'hello from main process')
