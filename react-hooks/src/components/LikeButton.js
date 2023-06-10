@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import useMousePosition from '../hooks/useMousePosition'
 
 const LikeButton = ()=>{
     // const [ like,setLike ] = useState(0)
@@ -21,6 +22,7 @@ const LikeButton = ()=>{
     //     </>
     // )
 
+    const positions = useMousePosition()
     const [ like,setLike ] = useState(0)
     const [ on,setOn ] = useState(true)
     useEffect(()=>{
@@ -28,6 +30,7 @@ const LikeButton = ()=>{
     })
     return (
         <>
+        <p>{positions.y}</p>
         <button onClick={()=>{
             setLike(like+1)
         }}>
